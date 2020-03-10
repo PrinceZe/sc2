@@ -28,6 +28,7 @@
     "normalize.css": "^8.0.1",
     "redbox-react": "^1.4.3",
     "roadhog": "^2.5.0-beta.4",
-    "sass-loader": "^7.3.1"
+    "sass-loader": "^7.3.1",
+    "video-react": "^0.14.1"
   }
 }

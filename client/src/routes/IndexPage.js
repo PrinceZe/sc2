@@ -4,8 +4,7 @@ import styles from './IndexPage.scss';
 import Nav from '../routes/nav/nav'
 import {Switch} from 'dva/router'
 import Private,{RedirectRoute,NoMatchRoute} from '../utils/Private'
-import Foot from '../routes/footer'
-const {Header,Content,Footer} = Layout
+const {Header,Content} = Layout
 export default class IndexPage extends Component {
   constructor(){
     super()
@@ -31,9 +30,6 @@ export default class IndexPage extends Component {
          <NoMatchRoute></NoMatchRoute>
          </Switch>
        </Content>
-       <Footer>
-         <Foot></Foot>
-       </Footer>
        </Layout>
       </div>
     )

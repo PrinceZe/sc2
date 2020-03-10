@@ -1,0 +1,27 @@
+:global{
+    .public-wrap{
+      margin-top: 40px;
+      box-sizing: border-box;
+      padding: 40px 45px 0 45px;
+    .public-users{
+       min-height: 800px;
+       padding: 0 20px;
+       .ant-comment{
+        border: 1px solid #f8f9fa;
+        
+       .ant-comment-actions{
+         float: right;
+       }
+
+       }
+    }
+    .public-commen{
+        min-height: 800px;
+        position: relative;
+        .btn{
+        float: right;
+        }
+    }
+    }
+    
+}

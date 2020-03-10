@@ -1,0 +1,29 @@
+:global {
+    .card-wrap{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        .card-title{
+            display: flex;
+            width: 100%; 
+            img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+            .card-title-write{
+                margin-left: 10px;
+                display: flex;
+                align-items: center;
+
+            }
+        }
+        .page{
+            margin-top: 15px;
+        }
+        .ant-card-extra{
+            position: relative;
+            top: -21px;
+        }
+    }
+}
