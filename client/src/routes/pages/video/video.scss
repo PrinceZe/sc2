@@ -1,0 +1,21 @@
+:global{
+    .video-wrap{
+        padding: 50px 150px;
+        box-sizing: border-box;
+        .views-left{
+            .video-box{
+                width: 100%;
+            }
+        }
+        .ant-comment{
+            width: 50%
+           }
+           .ant-divider-horizontal{
+            width: 50%;
+            min-width: 50%;
+           }
+           .ant-list {
+            width: 50%;
+        }
+    }
+}

@@ -141,7 +141,7 @@ if(this.state.fileList.length >1 ){
 
 
 componentDidMount() {
-
+console.log(this.props)
 axios.get('http://localhost:5000/keep/public/').then((result)=>{
   this.setState({
     renderData : result.data
@@ -180,7 +180,7 @@ axios.get('http://localhost:5000/keep/public/').then((result)=>{
                    <Col span={this.state.status?24:18} className=""  >
                      <div className="public-users">
                         {
-                          this.state.renderData.length > 0 ? (<Views comment = { this.state.renderData}></Views>) : (<Empty /> )
+                          this.state.renderData.length > 0 ? (<Views comment = { this.state.renderData} {...this.props}></Views>) : (<Empty style={{width : '50%'}} /> )
                         }
                      </div>
                    </Col>

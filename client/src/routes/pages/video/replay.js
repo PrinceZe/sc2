@@ -11,7 +11,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
     </Form.Item>
     <Form.Item>
       <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-        Add Comment
+       Replay
       </Button>
     </Form.Item>
   </div>
@@ -23,7 +23,6 @@ class App extends React.Component {
     value: '',
     current : {}
   };
- 
   componentDidMount(){
      if(window.localStorage.getItem('Token')){
         setAuthCurrent(window.localStorage.getItem('Token'))
@@ -45,8 +44,9 @@ class App extends React.Component {
     }
     var obj = {}
     obj.text = this.state.value
-    obj.current_id = this.props.current_id
-    axios.post('http://localhost:5000/keep/posts/',obj).then((result)=>{
+    obj.avatar = this.state.current.img
+    obj.name = this.state.current.name
+    axios.post(`http://localhost:5000/keep/posts/comment/${this.props._id}`,obj).then((result)=>{
       window.location.reload()
     })
   };

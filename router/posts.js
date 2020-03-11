@@ -2,14 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
-const multer = require('multer');
+const Public   = require('../models/Public')
 const Post = require("../models/Posts");
-const User = require('../models/Users')
-const Public  = require('../models/Public')
-const path = require('path')
-const fs  = require('fs')
-// const Profile = require("../../models/Profiles");
-
 
 // $route  GET api/posts/test
 // @desc   返回的请求的json数据
@@ -18,15 +12,19 @@ router.get("/test",(req,res) => {
   res.json({msg:"posts works"})
 })
 
+
 // $route  POST api/posts
 // @desc   创建一个评论接口
 // @access Private
-router.post("/", passport.authenticate('jwt', { session: false }),(req,res) => {  
-      let newPost = {}
-   newPost.user = req.user.id
-   newPost.current_id = req.body.current_id
-   if(req.body.text) newPost.text = req.body.text
-   new Post(newPost).save().then(profile => res.json(profile));
+router.post("/",passport.authenticate('jwt', { session: false }),(req,res) => {
+  const newPost = new Post({
+    text:req.body.text,
+    name:req.body.name,
+    avatar:req.body.avatar,
+    user:req.user.id
+  });
+
+  newPost.save().then(post => res.json(post));
 })
 
 
@@ -35,11 +33,11 @@ router.post("/", passport.authenticate('jwt', { session: false }),(req,res) => {
 // @access public
 router.get("/",(req,res) => {
   Post.find()
-  .populate('user', ["name", "avatar"])
-      .sort({date: 1})
+      .sort({date: -1})
       .then(posts => res.json(posts))
       .catch(err => res.status(404).json({nopostsfound:"找不到任何评论信息"}))
 })
+
 // $route  GET api/posts/:id
 // @desc   获取单个评论信息
 // @access public
@@ -49,9 +47,9 @@ router.get("/",(req,res) => {
 //       .catch(err => res.status(404).json({nopostsfound:"找不到该评论信息"}))
 // })
 
-// $route  DELETE api/posts/:id
-// @desc   删除单个评论信息
-// @access Private
+// // $route  DELETE api/posts/:id
+// // @desc   删除单个评论信息
+// // @access Private
 // router.delete("/:id",passport.authenticate('jwt', { session: false }),(req,res) => {
 //   Profile.findOne({user:req.user.id}).then(profile => {
 //     Post.findById(req.params.id)
@@ -68,36 +66,36 @@ router.get("/",(req,res) => {
 // })
 
 
-// // $route  POST api/posts/like/:id
-// // @desc   点赞接口
-// // @access Private
+// $route  POST api/posts/like/:id
+// @desc   点赞接口
+// @access Private
 router.post("/like/:id",passport.authenticate('jwt', { session: false }),(req,res) => {
-  Public.findOne({_id : req.params.id}).then(profile => {
-    console.log(profile._id);
-    if(profile.likes.filter(like => like.user.toString() === req.user.id).length > 0){
-      return res.json({alreadyliked:"该用户已赞过"})
-    }
+  Public.findOne({user:req.user.id}).then(profile => {
+    Post.findById(req.params.id)
+        .then(post => {
+          if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0){
+            return res.json({alreadyliked:"该用户已赞过"})
+          }
 
-    profile.likes.unshift({user:req.user.id})
+          post.likes.unshift({user:req.user.id})
 
-    profile.save().then(post => res.json(post))
-  
-       
-  }) .catch(err => res.status(404).json({likederror:"点赞错误"}))
+          post.save().then(post => res.json(post))
+        })
+        .catch(err => res.status(404).json({likederror:"点赞错误"}))
+  })
 })
 
 
-// // $route  POST api/posts/unlike/:id
-// // @desc   取消点赞接口
-// // @access Private
+// $route  POST api/posts/unlike/:id
+// @desc   取消点赞接口
+// @access Private
 router.post("/unlike/:id",passport.authenticate('jwt', { session: false }),(req,res) => {
   Public.findOne({user:req.user.id}).then(profile => {
     Post.findById(req.params.id)
         .then(post => {
           if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0){
-            return res.status(400).json({notliked:"该用户没有点过赞"})
+            return res.json({notliked:"该用户没有点过赞"})
           }
-
           // 获取要删掉的user id
           const removeIndex = post.likes.map(item => item.user.toString()).indexOf(req.user.id);
 
@@ -122,15 +120,13 @@ router.post("/comment/:id",passport.authenticate('jwt', { session: false }),(req
           user:req.user.id
         }
 
-        post.comments.unshift(newComment);
+        post.comments.push(newComment);
 
         // save
         post.save().then(post => res.json(post));
       })
       .catch(err => res.status(404).json({postnotfound:"添加评论错误"}))
 })
-
-
 // // $route  DELETE api/posts/comment/:id
 // // @desc   删除评论接口
 // // @access Private

@@ -85,6 +85,12 @@ const memus  = [
       this.handleSetSelectedKeys(nextProps.location.pathname);
     }
   }
+  componentWillUnmount(){
+    this.setState({
+      users : {},
+      selectedKeys: []
+    })
+  }
      handleSetSelectedKeys(pathname) {
         const temp = pathname.split('/');
         console.log(temp);

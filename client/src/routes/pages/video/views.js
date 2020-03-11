@@ -4,9 +4,16 @@ import {Card} from 'antd'
 import {Player} from 'video-react'
 const { Meta } = Card;
 export default class views extends Component {
+   
+    constructor(){
+        super()
+        this.state = {
+        }
+    }
+    handle(item){
+        this.props.history.push(`/views?src=${item.img[0]}&name=${item.user.name}`)
+    }
     render() {
-        console.log(this.props);
-        
         return (
             <div className="views-wrap">
                 {
@@ -16,21 +23,14 @@ export default class views extends Component {
                         hoverable
                         key={i}
                         style={{ width: 240,marginRight: 30,marginBottom:30,height : 270 }}
-                        cover={<Player playsInline  src="http://localhost:5000/static/测试视频.mp4" />}
+                        className="card-wrap"
                         >
-                       <Meta title="Europe Street beat" description="www.instagram.com" />
+                        <Player playsInline  src={item.img[0]} width="100%" ref="play" className="play_id" />
+                       <Meta  description={item.text} style={{marginTop:40}}  onClick={()=>this.handle(item)} />
                       </Card>
                        )
                     })
                 }
-                 <Card
-                        hoverable
-                        
-                        style={{ width: 240,marginRight: 30,marginBottom:30,height : 270 }}
-                        cover={<video controls   src="http://localhost:5000/static/测试视频.mp4" />}
-                        >
-                       <Meta title="Europe Street beat" description="www.instagram.com" />
-                      </Card>
             </div>
         )
     }

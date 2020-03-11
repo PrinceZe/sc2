@@ -9,16 +9,13 @@ const PostSchema = new Schema({
   },
   text:{
     type:String,
-  },
-  current_id : {
-    type:String || Number,
-    require : true
+    required:true
   },
   name:{
-    type:String, 
+    type:String
   },
   avatar:{
-    type:String, 
+    type:String
   },
   likes:[
     {
