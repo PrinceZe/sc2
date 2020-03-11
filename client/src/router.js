@@ -34,6 +34,11 @@ let routeArr = [
         path : "/views",
         component : ()=>import('../src/routes/pages/video/video'),
         model : [],
+      },
+      {
+        path : "/profile",
+        component : ()=>import('../src/routes/profile/index'),
+        model : [],
       }
     ],
   }

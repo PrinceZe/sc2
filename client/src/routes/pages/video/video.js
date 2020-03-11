@@ -7,6 +7,7 @@ import axios from 'axios'
 import { Divider,Row,Col } from 'antd';
 import Replay from './replay'
 import { Tag } from 'antd';
+import  RightList from './rightList'
 import Again from './again'
 const { TextArea } = Input;
   
@@ -204,14 +205,14 @@ export default class video extends Component {
         return (
             <div className="video-wrap">
               <Row>
-                <Col span="16">
+                <Col span="14">
                 <div className="views-left">
          <div className="video-box">
                   <div className="video-title" style={{display : 'flex' , marginBottom:30}}>
                      <Tag color={this.randomCol()} style={{marginRight:20}}>作品</Tag>
                       <h4>{this.decode_Url(this.state.src)}</h4>
                   </div>
-                   <video controls src={this.state.src}></video>
+                   <video controls src={this.state.src} style={{display : "block",width: "100%",minHeight : "100%"}}></video>
                 </div>
                 <div>
         <Comment
@@ -288,9 +289,9 @@ export default class video extends Component {
      />
          </div>
                 </Col>
-                <Col span="8" >
+                <Col span="8" style={{marginLeft : 60}} >
                 <div className="recommend-right">
-                       推荐列表
+                      <RightList {...this.props}></RightList>
                 </div>
                 </Col>
               </Row>

@@ -93,8 +93,6 @@ const memus  = [
   }
      handleSetSelectedKeys(pathname) {
         const temp = pathname.split('/');
-        console.log(temp);
-        
         const key = temp && temp.length <2  ? 'home' : temp[1];
         this.setState({
           selectedKeys: [key]
@@ -107,10 +105,13 @@ const memus  = [
           window.location.reload()
         }
       };
+      go_profile(){
+        this.props.history.push('/profile')
+      }
       menu = (
         <Menu>
            <Menu.Item key="will">
-            <span>个人信息</span>
+            <span onClick={()=>this.go_profile()}>个人信息</span>
           </Menu.Item>
           <Menu.Item key="logout" onClick={(key)=>this.handleClickMenu(key)}>
             <span>退出</span>

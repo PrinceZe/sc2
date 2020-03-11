@@ -1,0 +1,25 @@
+:global{
+    .right-list-wrap{
+        width: 100%;
+        .right-list-top{
+            margin-bottom: 30px;
+        }
+        .right-list{
+            display: flex;
+            margin-top: 36px;
+            margin-bottom: 50px;
+            height: 50px;
+            .img-wrap{
+                img{
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .list-right{
+                margin-left: 20px;
+                line-height: 40px;
+            }
+        }
+    }
+}
