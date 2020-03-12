@@ -1,13 +1,50 @@
 import React, { Component } from 'react'
 import style from './index.scss'
-import { Carousel, Divider } from 'antd';
+import { List,Typography  } from 'antd';
+import {Link} from 'dva/router' 
+const arr = [
+    {
+        img : "http://localhost:5000/static/dva.jpg",
+        text  : "测试",
+        main : "111111222"
+    },
+    {
+        img : "http://localhost:5000/static/git.jpg",
+        text  : "测试",
+        main : "1111113333" 
+    },
+    {
+        img : "http://localhost:5000/static/node.jpg",
+        text  : "测试",
+        main : "1111114444"
+    },
+    {
+        img : "http://localhost:5000/static/scss.jpg",
+        text  : "测试",
+        main : "1111115555"
+    },
+    {
+        img : "http://localhost:5000/static/mongodb.jpg",
+        text  : "测试",
+        main : "1111116666"
+    }
+]
+const data = [
+    'Racing car sprays burning fuel into crowd.',
+    'Japanese princess to wed commoner.',
+    'Australian walks 100km after outback crash.',
+    'Man charged over missing wedding girl.',
+    'Los Angeles battles huge wildfires.',
+  ];
 export default class index extends Component {
     constructor(){
         super()
         this.state = {
-            hidden : false
+            hidden : false,
+            index : 0
         }
     }
+    
     componentDidMount(){
          var that = this
         window.onscroll = function(){
@@ -25,10 +62,28 @@ export default class index extends Component {
         }
     }
     forward(){
-       console.log(1)
+       if(this.state.index == 0) {
+           this.setState({
+               index : arr.length -1 
+           })
+       }
+       else {
+        this.setState({
+            index : this.state.index - 1
+        }) 
+       }
     }
     back(){
-      console.log(2)
+        if(this.state.index == arr.length -1 ) {
+            this.setState({
+                index : 0 
+            })
+        }
+        else {
+         this.setState({
+             index : this.state.index +1 
+         }) 
+        }
     }
     render() {
         const  {hidden} = this.state
@@ -194,34 +249,57 @@ export default class index extends Component {
                 <img src="https://egret.com/img/homepage/dist/newIndex/pen.png"  />
                     <h2>技术热点</h2>
                 </section>
-                <section className="main-content">
-                    <div className="main-content-list">
-                        1
-                    </div>
-                    <div className="main-content-list">
-                        2
-                    </div>
-                    <div className="main-content-list">
-                        3
-                    </div>
-                    <div className="main-content-list">
-                        4
-                    </div>
-                    <div className="main-content-list">
-                        5
-                    </div>
+                <section className="main-content" ref={(node)=>this.node = node}>
+                    {
+                        arr.map((item,index)=>{
+                            return (
+                                <div key={index} className={`main-content-list ${index === this.state.index ? "active" : ""}`}>
+                                <div className="main-content-list-item-left-logo">
+                                    <img src={item.img} alt=""/>
+                                </div>
+                                <div className={`main-content-list-item-right-write ${index === this.state.index ? "active" : ""}`}>
+                                    <div className="main-content-list-item-right-write-top">
+                                        <p>{item.text}</p>
+                                    </div>
+                                    <div className="main-content-list-item-right-write-bottom">
+                                        {item.main}
+                                    </div>
+                                </div>
+                            </div>
+                            )
+                        })
+                    }  
                 </section>
-                <section className="blogBottom" style={{marginTop : "15px"}}>
-                <img className="line" style={{marginRight : "15px"}}  src="https://egret.com/img/homepage/dist/newIndex/line.png" />
-                <img class="arrowBtn left" style={{width:"31.5px",height:"31.5px",marginRight : "15px" }} src="https://egret.com/img/homepage/dist/newIndex/blogLeft.png" onClick={()=>this.forward()}></img>
-                <span class="blogTime" style={{marginRight : "15px"}}>2020-2-5</span>
-                <img class="arrowBtn right" style={{width:"31.5px",height:"31.5px",marginRight : "15px"}} src="https://egret.com/img/homepage/dist/newIndex/blogRight.png" onClick={()=>this.back()}></img>
-                <img class="line"   src="https://egret.com/img/homepage/dist/newIndex/line.png"></img>
+                <section className="blogBottom">
+                <img className="line"  src="https://egret.com/img/homepage/dist/newIndex/line.png" />
+                <img className="arrowBtn left" style={{width:"31.5px",height:"31.5px",marginRight : "15px"}}  src="https://egret.com/img/homepage/dist/newIndex/blogLeft.png" onClick={()=>this.forward()}></img>
+                <span className="blogTime">2020-2-5</span>
+                <img className="arrowBtn right" style={{width:"31.5px",height:"31.5px",marginRight : "15px"}} src="https://egret.com/img/homepage/dist/newIndex/blogRight.png" onClick={()=>this.back()}></img>
+                <img className="line"    src="https://egret.com/img/homepage/dist/newIndex/line.png"></img>
 
                 </section>
                </section>
-                <section className="community-contain-right">
 
+
+                <section className="community-contain-right">
+                <section className="community-contain-right-container">
+                <section className="main-title">
+                <img src="https://egret.com/img/homepage/dist/newIndex/pen.png"  />
+                    <h2>技术热帖</h2>
+                </section>
+                <section className="main-content">
+                <List
+                 bordered
+                 dataSource={data}
+                 renderItem={item => (
+                 <List.Item>
+                 <Typography.Text mark>[ITEM]</Typography.Text>
+                  <Link to="/">{item}</Link>
+                 </List.Item>
+      )}
+    />
+                </section>
+               </section>
                 </section>
             </div>
 

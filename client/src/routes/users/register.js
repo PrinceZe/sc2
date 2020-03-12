@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import style from './index.scss'
 import 'normalize.css'
+import {Link} from 'dva/router'
 import { email_reg, pwd_reg } from '../../utils/Regexp.js';
 import axios from 'axios'
 import {connect} from 'dva'
@@ -150,11 +151,11 @@ class index extends Component {
                                 </Button>
                               </Form.Item>
                                <Form.Item style={{width:"380px", textAlign : "right" }}>
-                                <a href="/login"  onClick={(e)=>this.preventLogin(e)}>已有账号马上登录</a>
+                                <Link to="/login">已有账号马上登录</Link>
                                </Form.Item>
                             </Form>
                </div>
-               <div className="footer-wrap">
+               {/* <div className="footer-wrap">
                <div className="footer-links">
                 <a className="nav-item nav-a" href="https://www.battlenet.com.cn/zh/legal-cn/" data-analytics="global-nav" data-analytics-placement="Footer - eula">Battle.net EULA</a>
                 <span>|</span>
@@ -181,7 +182,7 @@ class index extends Component {
                 <li className="nav-footer-icon-list-item"><a className="nav-footer-icon-link footer-icon-sgs" href="http://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView&amp;entyId=20111011175417664" target="_blank"></a></li>
                 <li className="nav-footer-icon-list-item"><a className="nav-footer-icon-link footer-icon-shjbzx" href="http://www.shjbzx.cn/" target="_blank"></a></li>
                 </ul>
-               </div>
+               </div> */}
             </div>
         )
     }

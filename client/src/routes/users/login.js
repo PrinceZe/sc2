@@ -5,6 +5,7 @@ import { email_reg, pwd_reg } from '../../utils/Regexp.js';
 import axios from 'axios'
 import {connect} from 'dva'
 import {Form,Message,Button,Input} from 'antd'
+import { Link } from 'dva/router';
 @connect()
 class index extends Component {
     constructor(){
@@ -118,9 +119,12 @@ class index extends Component {
                     登录
                     </Button>
                 </Form.Item>
+                <Form.Item style={{width:"380px", textAlign : "right" }}>
+                                <Link to="/register">无账号立即注册</Link>
+                </Form.Item>
             </Form>
                </div>
-               <div className="footer-wrap">
+               {/* <div className="footer-wrap">
                <div className="footer-links">
                 <a className="nav-item nav-a" href="https://www.battlenet.com.cn/zh/legal-cn/" data-analytics="global-nav" data-analytics-placement="Footer - eula">Battle.net EULA</a>
                 <span>|</span>
@@ -147,7 +151,7 @@ class index extends Component {
                 <li className="nav-footer-icon-list-item"><a className="nav-footer-icon-link footer-icon-sgs" href="http://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView&amp;entyId=20111011175417664" target="_blank"></a></li>
                 <li className="nav-footer-icon-list-item"><a className="nav-footer-icon-link footer-icon-shjbzx" href="http://www.shjbzx.cn/" target="_blank"></a></li>
                 </ul>
-               </div>
+               </div> */}
             </div>
         )
     }
